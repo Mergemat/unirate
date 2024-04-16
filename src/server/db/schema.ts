@@ -24,5 +24,33 @@ export const posts = createTable(
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
+);
+
+export const unis = createTable("uni", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  name: text("name", { length: 256 }),
+  tag: text("tag", { length: 256 }),
+  imageUrl: text("image_url", { length: 256 }),
+});
+
+export const reviews = createTable(
+  "review",
+  {
+    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+    text: text("description", { length: 256 }),
+    rating: int("rating", { mode: "number" }),
+    uniId: int("uni_id", { mode: "number" }).references(() => unis.id, {
+      onDelete: "cascade",
+    }),
+    createdAt: int("created_at", { mode: "timestamp" })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: int("updatedAt", { mode: "timestamp" }),
+  },
+  (review) => {
+    return {
+      propertyIdx: index("review_property_idx").on(review.uniId),
+    };
+  },
 );

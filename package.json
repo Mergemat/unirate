@@ -12,8 +12,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/localizations": "^1.28.2",
     "@clerk/nextjs": "5.0.0-beta.38",
     "@libsql/client": "^0.6.0",
+    "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.9.2",
     "@tanstack/react-query": "^5.25.0",
     "@trpc/client": "next",

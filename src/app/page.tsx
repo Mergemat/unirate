@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
+import { SignIn, SignInButton, SignedOut } from "@clerk/nextjs";
+
 
 const unis = [
   {
@@ -68,7 +70,7 @@ const lastReviews = [
 
 export default async function Home() {
   return (
-    <div className="flex flex-col lg:flex-row gap-5 lg:justify-between p-2 px-5">
+    <div className="flex flex-col gap-5 p-2 px-5 lg:flex-row lg:justify-between">
       <div className="flex flex-col gap-5">
         {unis.map((uni) => (
           <Card
@@ -92,7 +94,7 @@ export default async function Home() {
           </Card>
         ))}
       </div>
-      <Card className="lg:w-1/3 h-fit">
+      <Card className="h-fit lg:w-1/3">
         <CardHeader>
           <CardTitle>Последние отзывы</CardTitle>
         </CardHeader>
@@ -103,7 +105,7 @@ export default async function Home() {
               className="flex flex-col gap-4 rounded-md border p-4"
             >
               <div>
-                <h1 className="text-xl font-semibold text-primary">
+                <h1 className="text-xl font-semibold">
                   {review.author}
                 </h1>
                 <h1 className="text-md w-72 text-muted-foreground">
@@ -115,7 +117,13 @@ export default async function Home() {
                 {Array(5)
                   .fill(0)
                   .map((_, i) => (
-                    <Star key={i} className={cn("fill-muted stroke-0", i < review.stars ? "fill-primary" : "")} />
+                    <Star
+                      key={i}
+                      className={cn(
+                        "fill-muted stroke-0",
+                        i < review.stars ? "fill-primary" : "",
+                      )}
+                    />
                   ))}
               </div>
             </div>

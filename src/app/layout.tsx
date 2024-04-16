@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
 
+import { ruRU} from "@clerk/localizations";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={ruRU}>
       <html lang="en">
         <body className={`font-sans ${inter.variable} grid grid-rows-[auto,1fr] h-screen`}>
           <TRPCReactProvider>
