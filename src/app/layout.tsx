@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
 
 import { ruRU} from "@clerk/localizations";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
