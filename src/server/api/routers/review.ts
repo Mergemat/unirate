@@ -13,6 +13,7 @@ export const reviewRouter = createTRPCRouter({
         },
       },
       orderBy: asc(reviews.createdAt),
+      limit: 5,
     });
   }),
 });

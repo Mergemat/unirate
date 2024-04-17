@@ -27,8 +27,8 @@ export default async function UniPage({ params }: { params: { id: string } }) {
         width={1000}
         height={400}
       />
-      <div className="flex mt-10 w-full max-w-screen-2xl flex-col gap-5 p-2 lg:justify-between xl:mx-auto">
-        <h1 className="text-4xl font-bold">{uni.name}</h1>
+      <div className="mt-10 flex w-full max-w-screen-xl flex-col gap-5 p-2 lg:justify-between xl:mx-auto">
+        <h1 className="text-4xl font-bold xl:w-1/2">{uni.name}</h1>
       </div>
     </>
   );
