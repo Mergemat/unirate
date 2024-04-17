@@ -26,7 +26,7 @@ export const reviews = createTable(
         onDelete: "cascade",
       })
       .notNull(),
-    authorId: int("user_id", { mode: "number" }).notNull(),
+    authorId: text("user_id").notNull(),
     createdAt: int("created_at", { mode: "timestamp" })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

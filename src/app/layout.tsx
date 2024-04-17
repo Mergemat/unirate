@@ -30,7 +30,7 @@ export default function RootLayout({
         <body className={`font-sans ${inter.variable} grid grid-rows-[auto,1fr] h-screen`}>
           <TRPCReactProvider>
             <TopNav />
-            <main className="overflow-y-scroll max-w-screen-2xl xl:mx-auto">
+            <main className="overflow-y-scroll">
             {children}
             </main>
           </TRPCReactProvider>

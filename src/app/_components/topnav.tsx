@@ -1,14 +1,15 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { CircleUserRound } from "lucide-react";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
 export function TopNav() {
   return (
     <header>
       <div className="flex items-center justify-between p-4 px-5 shadow-sm">
-        <h1 className="text-4xl font-bold">
+        <Link href="/" className="text-4xl font-bold">
           Uni<span className="text-primary">Rate</span>
-        </h1>
+        </Link>
         <div className="flex items-center gap-3">
           <SignedOut>
             <SignInButton mode="modal">
