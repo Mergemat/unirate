@@ -8,8 +8,6 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { cn } from "~/lib/utils";
-import { SignIn, SignInButton, SignedOut } from "@clerk/nextjs";
-
 
 const unis = [
   {
@@ -70,18 +68,11 @@ const lastReviews = [
 
 export default async function Home() {
   return (
-    <div className="flex flex-col gap-5 p-2 px-5 lg:flex-row lg:justify-between">
+    <div className="flex flex-col gap-5 p-2 px-5 lg:justify-between lg:flex-row">
       <div className="flex flex-col gap-5">
         {unis.map((uni) => (
-          <Card
-            className="w-fill flex flex-row-reverse justify-end p-2"
-            key={uni.id}
-          >
-            <CardHeader className="w-[500px]">
-              <CardTitle>{uni.name}</CardTitle>
-              <CardDescription>{uni.tag}</CardDescription>
-            </CardHeader>
-            <CardContent className="w-[300px] p-0">
+          <Card className="w-fill card p-2 lg:card-side" key={uni.id}>
+            <CardContent className="lg:w-[300px] p-0">
               <Image
                 src={uni.imageUrl}
                 alt={""}
@@ -91,10 +82,14 @@ export default async function Home() {
                 height={200}
               />
             </CardContent>
+            <CardHeader className="">
+              <CardTitle>{uni.name}</CardTitle>
+              <CardDescription>{uni.tag}</CardDescription>
+            </CardHeader>
           </Card>
         ))}
       </div>
-      <Card className="h-fit lg:w-1/3">
+      <Card className="h-fit xl:w-1/3">
         <CardHeader>
           <CardTitle>Последние отзывы</CardTitle>
         </CardHeader>
@@ -105,9 +100,7 @@ export default async function Home() {
               className="flex flex-col gap-4 rounded-md border p-4"
             >
               <div>
-                <h1 className="text-xl font-semibold">
-                  {review.author}
-                </h1>
+                <h1 className="font-semibold">{review.author}</h1>
                 <h1 className="text-md w-72 text-muted-foreground">
                   {unis[review.uni]!.name}
                 </h1>
