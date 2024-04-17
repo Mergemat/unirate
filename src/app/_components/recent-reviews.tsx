@@ -55,7 +55,7 @@ async function ReviewList() {
               {review.uni.name}
             </h1>
           </div>
-          <p className="text-base">{review.text}</p>
+          <p className="text-base h-[4.9rem] overflow-hidden line-clamp-3 text-ellipsis">{review.text}</p>
           <div className="flex gap-2">
             {Array(5)
               .fill(0)
