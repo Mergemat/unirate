@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { api } from "~/trpc/server";
 import { Suspense } from "react";
-import { ReviewCard, ReviewCardSkeleton } from "~/components/review-list";
+import { ReviewCard, ReviewCardSkeleton } from "~/components/review-card";
 
 export async function RecentReviews() {
   return (
-    <Card className="sticky top-2 h-fit xl:w-1/3">
+    <Card className="sticky top-2 h-fit lg:w-1/3">
       <CardHeader>
         <CardTitle>Последние отзывы</CardTitle>
       </CardHeader>
@@ -17,9 +17,16 @@ export async function RecentReviews() {
     </Card>
   );
 }
-
 async function ReviewList() {
   const reviews = await api.review.recent();
+
+  if (reviews.length === 0 || !reviews) {
+    return (
+      <div className="flex h-full w-full items-center justify-center text-lg text-muted-foreground">
+        Отзывов пока нет
+      </div>
+    );
+  }
 
   return (
     <>

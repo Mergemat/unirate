@@ -47,14 +47,14 @@ export async function ReviewCard({
       >
         {review.text}
       </p>
-      <Rating rating={review.rating} />
+      <Rating rating={review.rating} size="sm" />
     </div>
   );
 }
 
 export function ReviewCardSkeleton() {
   return (
-    <div className="flex flex-col gap-6 rounded-xl border p-4">
+    <div className="flex flex-col overflow-hidden gap-6 rounded-xl border p-4">
       <div className="flex flex-col gap-2">
         <Skeleton className="h-6 w-32 font-semibold" />
         <Skeleton className="text-md h-4 w-72 text-muted-foreground" />
@@ -65,7 +65,7 @@ export function ReviewCardSkeleton() {
         <Skeleton className="h-3 w-full text-base" />
         <Skeleton className="h-3 w-3/5 text-base" />
       </div>
-      <RatingSkeleton />
+      <RatingSkeleton size="sm" />
     </div>
   );
 }

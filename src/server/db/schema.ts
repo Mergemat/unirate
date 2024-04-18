@@ -31,10 +31,12 @@ export const reviews = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: int("updatedAt", { mode: "timestamp" }),
+    faculty: text("faculty", { length: 256 }),
+    specialization: text("specialization", { length: 256 }),
   },
   (review) => {
     return {
-      propertyIdx: index("review_property_idx").on(review.uniId),
+      propertyIdx: index("review_property_indx").on(review.uniId),
     };
   },
 );

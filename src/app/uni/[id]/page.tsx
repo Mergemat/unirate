@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Suspense } from "react";
 import { Rating, RatingSkeleton } from "~/components/Rating";
-import { ReviewCard, ReviewCardSkeleton } from "~/components/review-list";
+import { ReviewCardSkeleton } from "~/components/review-card";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { type Uni } from "~/server/db/schema";
@@ -23,6 +23,8 @@ export default async function UniPage({ params }: { params: { id: string } }) {
     return <div>Университет с ID {uniId} не существует</div>;
   }
 
+  const rating = await api.uni.rating({ id: uniId });
+
   return (
     <div className="mt-10 flex w-full max-w-screen-2xl flex-col justify-between gap-10 p-2 pb-10 lg:justify-between xl:mx-auto xl:flex-row">
       <div className="flex flex-col gap-4">
@@ -38,20 +40,7 @@ export default async function UniPage({ params }: { params: { id: string } }) {
             height={400}
           />
         </Card>
-
-        <Card className="flex w-full justify-between gap-5 rounded-xl bg-background/50 p-4 backdrop-blur-lg">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-2xl font-bold md:w-[600px] md:text-4xl">
-              {uni.name}
-            </h1>
-            <p className="w-fit text-muted-foreground">{uni.tag}</p>
-          </div>
-          <Card className="flex w-fit items-center justify-between rounded-xl bg-background/50 p-4 backdrop-blur-lg xl:card-side">
-            <Suspense fallback={<RatingSkeleton size={32} />}>
-              <RatingCard uniId={uni.id} />
-            </Suspense>
-          </Card>
-        </Card>
+        <UniInfo uni={uni} rating={rating} />
         <ReviewForm uniId={uniId} />
       </div>
       <Reviews uniId={uni.id} />
@@ -59,15 +48,25 @@ export default async function UniPage({ params }: { params: { id: string } }) {
   );
 }
 
-async function RatingCard({ uniId }: { uniId: Uni["id"] }) {
-  const rating = await api.uni.rating({ id: uniId });
-
-  return <Rating rating={rating} size={32} />;
+export function UniInfo({ uni, rating }: { uni: Uni; rating: number }) {
+  return (
+    <Card className="flex w-full justify-between gap-5 rounded-xl bg-background/50 p-4 backdrop-blur-lg">
+      <div className="flex flex-col gap-4">
+        <h1 className="text-2xl font-bold md:w-[600px] md:text-4xl">
+          {uni.name}
+        </h1>
+        <p className="w-fit text-muted-foreground">{uni.tag}</p>
+      </div>
+      <Card className="flex w-fit items-center justify-between rounded-xl bg-background/50 p-4 backdrop-blur-lg xl:card-side">
+        <Rating rating={rating} size="lg" />
+      </Card>
+    </Card>
+  );
 }
 
 async function Reviews({ uniId }: { uniId: Uni["id"] }) {
   return (
-    <Card className="w-full h-fit">
+    <Card className="h-fit w-full">
       <CardHeader>
         <CardTitle>Отзывы</CardTitle>
       </CardHeader>

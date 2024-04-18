@@ -1,4 +1,4 @@
-import { ReviewCard } from "~/components/review-list";
+import { ReviewCard } from "~/components/review-card";
 import { type Uni } from "~/server/db/schema";
 import { api } from "~/trpc/server";
 
@@ -8,7 +8,7 @@ export async function ReviewList({ uniId }: { uniId: Uni["id"] }) {
   if (reviews.length === 0 || !reviews) {
     return (
       <div className="flex h-full w-full items-center justify-center text-lg text-muted-foreground">
-        К этому университету пока нет отзывов
+        Отзывов пока нет
       </div>
     );
   }
