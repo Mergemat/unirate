@@ -5,7 +5,7 @@ import { ReviewCard, ReviewCardSkeleton } from "~/components/review-card";
 
 export async function RecentReviews() {
   return (
-    <Card className="sticky top-2 h-fit lg:w-1/3">
+    <Card className="sticky top-20 h-fit lg:w-1/3">
       <CardHeader>
         <CardTitle>Последние отзывы</CardTitle>
       </CardHeader>

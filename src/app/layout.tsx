@@ -31,17 +31,18 @@ export default function RootLayout({
       <ViewTransitions>
         <html lang="en">
           <body
-            className={`font-sans ${inter.variable} grid h-screen grid-rows-[auto_1fr] bg-background`}
+            className={`font-sans ${inter.variable} min-h-screen flex flex-col m-0 bg-background`}
           >
             <TRPCReactProvider>
               <TopNav />
-              <main className="z-10 overflow-y-scroll">{children}</main>
+              <main className="z-10 flex-1">{children}</main>
               <Image
                 src="/bg-image.png"
                 alt="Background image"
-                fill
-                className="absolute inset-0 h-full"
-                style={{ objectFit: "cover", position: "absolute" }}
+                width={1000}
+                height={1000}
+                className="fixed top-0 left-0 right-0 bottom-0 min-h-screen w-full"
+                style={{ objectFit: "cover", position: 'fixed' }}
               />
               <Toaster />
             </TRPCReactProvider>

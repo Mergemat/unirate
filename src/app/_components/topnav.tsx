@@ -7,7 +7,7 @@ import { Button } from "~/components/ui/button";
 
 export function TopNav() {
   return (
-    <header className="z-10 bg-background/40 backdrop-blur sticky top-0">
+    <header className="z-20 bg-background/40 backdrop-blur-xl sticky top-0">
       <div className="flex items-center justify-between p-4 px-5 shadow-sm">
         <Link href="/uni" className="text-4xl font-bold">
           Uni<span className="text-primary">Rate</span>
