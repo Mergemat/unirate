@@ -7,7 +7,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
 
 import { ruRU } from "@clerk/localizations";
-import Image from "next/image";
 
 const inter = Inter({
   subsets: ["latin"],
