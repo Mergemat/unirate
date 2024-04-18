@@ -6,11 +6,7 @@ export const reviewRouter = createTRPCRouter({
   recent: publicProcedure.query(({ ctx }) => {
     return ctx.db.query.reviews.findMany({
       with: {
-        uni: {
-          columns: {
-            name: true,
-          },
-        },
+        uni: true,
       },
       orderBy: asc(reviews.createdAt),
       limit: 5,

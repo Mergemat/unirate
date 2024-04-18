@@ -39,6 +39,13 @@ export const reviews = createTable(
   },
 );
 
+export const updateReviewSchema = createSelectSchema(reviews);
+export const reviewSchemaWithUni = updateReviewSchema.extend({
+  uni: updateUniSchema,
+});
+export type Review = z.infer<typeof updateReviewSchema>;
+export type ReviewWithUni = z.infer<typeof reviewSchemaWithUni>;
+
 export const reviewRelations = relations(reviews, ({ one }) => ({
   uni: one(unis, {
     fields: [reviews.uniId],
