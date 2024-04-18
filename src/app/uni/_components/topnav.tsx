@@ -1,5 +1,3 @@
-'use client'
-
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { CircleUserRound } from "lucide-react";
 import { Link } from "next-view-transitions";

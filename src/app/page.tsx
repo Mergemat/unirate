@@ -1,17 +1,21 @@
-import { RecentReviews } from "./_components/recent-reviews";
-import { UniCard } from "./_components/uni-card";
-import { api } from "~/trpc/server";
+import { Link } from "next-view-transitions";
+import { Button } from "~/components/ui/button";
 
 export default async function Home() {
-  const unis = await api.uni.all();
   return (
-    <div className="flex max-w-screen-xl xl:mx-auto flex-col gap-5 p-2 px-5 lg:flex-row lg:justify-between">
-      <div className="flex flex-col gap-5">
-        {unis.map((uni) => (
-          <UniCard key={uni.id} uni={uni} />
-        ))}
+    <div className="hero h-full">
+      <div className="hero-content text-center">
+        <div className="max-w-xl">
+          <h1 className="text-6xl font-bold">Добро пожаловать!</h1>
+          <p className="py-6 text-lg">
+            UniRate - это платформа для отслеживания рейтинга университетов
+            Дагестана. Нажмите на кнопку ниже чтобы начать.
+          </p>
+          <Button size="lg" asChild>
+            <Link href="/uni">Перейти к рейтингу</Link>
+          </Button>
+        </div>
       </div>
-      <RecentReviews />
     </div>
   );
 }

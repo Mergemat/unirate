@@ -1,6 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { index, int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
-import { createSelectSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { type z } from "zod";
 
 export const createTable = sqliteTableCreator((name) => `unirate_${name}`);
@@ -43,6 +43,11 @@ export const updateReviewSchema = createSelectSchema(reviews);
 export const reviewSchemaWithUni = updateReviewSchema.extend({
   uni: updateUniSchema,
 });
+
+export const insertReviewSchema = createInsertSchema(reviews).omit({
+  id: true,
+});
+
 export type Review = z.infer<typeof updateReviewSchema>;
 export type ReviewWithUni = z.infer<typeof reviewSchemaWithUni>;
 

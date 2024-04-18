@@ -7,6 +7,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { TopNav } from "./_components/topnav";
 
 import { ruRU } from "@clerk/localizations";
+import Image from "next/image";
+import { Toaster } from "~/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,11 +31,19 @@ export default function RootLayout({
       <ViewTransitions>
         <html lang="en">
           <body
-            className={`font-sans bg-background ${inter.variable} grid h-screen grid-rows-[auto_1fr]`}
+            className={`font-sans ${inter.variable} grid h-screen grid-rows-[auto_1fr] bg-background`}
           >
             <TRPCReactProvider>
               <TopNav />
-              <main className="overflow-y-scroll">{children}</main>
+              <main className="z-10 overflow-y-scroll">{children}</main>
+              <Image
+                src="/bg-image.png"
+                alt="Background image"
+                fill
+                className="absolute inset-0 h-full"
+                style={{ objectFit: "cover", position: "absolute" }}
+              />
+              <Toaster />
             </TRPCReactProvider>
           </body>
         </html>

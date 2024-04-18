@@ -41,7 +41,7 @@ export async function ReviewCard({
         className={cn(
           "text-base",
           preview
-            ? "line-clamp-3 h-[4.9rem] overflow-hidden text-ellipsis"
+            ? "line-clamp-3 max-h-[4.9rem] overflow-hidden text-ellipsis"
             : "",
         )}
       >
