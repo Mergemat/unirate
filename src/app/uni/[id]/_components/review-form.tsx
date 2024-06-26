@@ -1,6 +1,6 @@
 "use client";
 
-import { UseFormReturn, useForm, useWatch } from "react-hook-form";
+import { type UseFormReturn, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
@@ -20,9 +20,9 @@ import { Loader2, Star } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "~/trpc/react";
 import { toast } from "~/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";
+import { Input } from "~/components/ui/input";
 
 const reviewFormSchema = insertReviewSchema.extend({
   uniId: z.number(),
@@ -30,11 +30,13 @@ const reviewFormSchema = insertReviewSchema.extend({
     message: "Максимальная длина 256 символов",
   }),
   rating: z.number().min(1, { message: "Укажите оценку" }),
+  faculty: z.string().min(1, { message: "Укажите факультет" }),
+  specialization: z.string().min(1, { message: "Укажите специальность" }),
 });
 
 export function ReviewForm({ uniId }: { uniId: Uni["id"] }) {
   const { user, isSignedIn, isLoaded } = useUser();
-  const router = useRouter();
+  const utils = api.useUtils();
 
   const { mutate } = api.review.create.useMutation({
     onMutate: async () => {
@@ -44,7 +46,7 @@ export function ReviewForm({ uniId }: { uniId: Uni["id"] }) {
     },
     onSuccess: async () => {
       form.reset();
-      router.refresh();
+      await utils.review.invalidate();
       toast({
         title: "Отзыв отправлен",
       });
@@ -58,11 +60,16 @@ export function ReviewForm({ uniId }: { uniId: Uni["id"] }) {
     },
   });
 
+  const { data: userReview } = api.review.byUserId.useQuery({
+    uniId,
+  });
+
   const form = useForm<z.infer<typeof reviewFormSchema>>({
     resolver: zodResolver(reviewFormSchema),
     defaultValues: {
       uniId,
       text: "",
+      faculty: "",
       rating: 0,
     },
   });
@@ -76,6 +83,14 @@ export function ReviewForm({ uniId }: { uniId: Uni["id"] }) {
       form.setValue("authorId", user.id);
     }
   }, [form, user]);
+
+  if (userReview?.length && userReview.length > 0) {
+    return (
+      <Card className="flex w-full items-center justify-center gap-5 rounded-xl bg-background/50 p-4 backdrop-blur-lg">
+        <h1>Вы уже оставили отзыв</h1>
+      </Card>
+    );
+  }
 
   if (!isLoaded) {
     return (
@@ -100,6 +115,33 @@ export function ReviewForm({ uniId }: { uniId: Uni["id"] }) {
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="faculty"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Факультет</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ваш факультет" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="specialization"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Специальность</FormLabel>
+                <FormControl>
+                  <Input placeholder="Ваша специальность" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="text"
@@ -162,11 +204,11 @@ function RatingInput({
               onMouseEnter={() => setHover(i + 1)}
               onMouseLeave={() => setHover(0)}
               className={cn(
-                "cursor-pointer stroke-0 w-10 px-1 h-8",
+                "h-8 w-10 cursor-pointer stroke-0 px-1 transition-transform duration-100 ease-in-out",
                 i < rating
                   ? "fill-primary"
                   : i < hover
-                    ? "fill-primary/20"
+                    ? "scale-125 fill-primary/20"
                     : "fill-secondary-foreground/20",
               )}
             />

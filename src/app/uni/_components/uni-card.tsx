@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from 'next-view-transitions'
+import { Link } from "next-view-transitions";
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import { imageShimmer, toBase64 } from "~/utils/images";
 export function UniCard({ uni }: { uni: Uni }) {
   return (
     <Link href={`/uni/${uni.id}`}>
-      <Card className="w-fill card p-2 lg:card-side">
+      <Card className="card p-2 lg:card-side">
         <CardContent className="p-0 lg:w-[300px]">
           <Image
             src={uni.imageUrl}
@@ -28,7 +28,9 @@ export function UniCard({ uni }: { uni: Uni }) {
           />
         </CardContent>
         <CardHeader className="lg:w-2/4">
-          <CardTitle>{uni.name}</CardTitle>
+          <CardTitle className="text-xl font-bold md:max-w-[600px] md:text-2xl">
+            {uni.name}
+          </CardTitle>
           <CardDescription>{uni.tag}</CardDescription>
         </CardHeader>
       </Card>

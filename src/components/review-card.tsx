@@ -33,9 +33,16 @@ export async function ReviewCard({
     <div className="flex flex-col gap-4 rounded-xl border p-4">
       <div>
         <h1 className="font-semibold">{getAuthorName(review.authorId)}</h1>
-        <h1 className="text-md w-72 text-muted-foreground">
-          {review.uni.name}
-        </h1>
+        {preview ? (
+          <h1 className="w-full max-w-xl text-sm text-muted-foreground">
+            {review.uni.name}
+          </h1>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            <span className="font-semibold">{review.faculty}</span> •{" "}
+            {review.specialization}
+          </p>
+        )}
       </div>
       <p
         className={cn(
@@ -54,7 +61,7 @@ export async function ReviewCard({
 
 export function ReviewCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden gap-6 rounded-xl border p-4">
+    <div className="flex flex-col gap-6 overflow-hidden rounded-xl border p-4">
       <div className="flex flex-col gap-2">
         <Skeleton className="h-6 w-32 font-semibold" />
         <Skeleton className="text-md h-4 w-72 text-muted-foreground" />
