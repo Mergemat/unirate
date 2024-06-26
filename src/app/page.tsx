@@ -3,7 +3,7 @@ import { Link } from "next-view-transitions";
 
 export default async function Home() {
   return (
-    <div className="hero h-full">
+    <div className="hero h-screen max-h-[90vh]">
       <div className="hero-content text-center">
         <div className="max-w-xl">
           <h1 className="text-6xl font-bold">Добро пожаловать!</h1>
